@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="UserManager.Api/UserManager.Api.csproj" />
+  <Project Path="UserManager.Infra/UserManager.Infra.csproj" />
+</Solution>
