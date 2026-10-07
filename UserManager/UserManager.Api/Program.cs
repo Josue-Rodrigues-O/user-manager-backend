@@ -6,7 +6,7 @@ namespace UserManager.Api
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddControllers();
@@ -21,6 +21,14 @@ namespace UserManager.Api
             {
                 app.MapOpenApi();
             }
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                await dbContext.Database.MigrateAsync();
+            }
+
+            app.Run();
 
             app.UseHttpsRedirection();
             app.UseAuthorization();
